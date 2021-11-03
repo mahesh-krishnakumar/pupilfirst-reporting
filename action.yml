@@ -1,10 +1,12 @@
 name: "Pupilfirst Reporting"
 description: "Report test status for a submission in Pupilfirst LMS"
 inputs:
-  submission_data:
-    description: Fields related to submission in JSON format
   report_file_path:
     description: Relative path of the report JSON file that holds the test data
+  status:
+    description: Status to report to the LMS - pending/error/failure/success. Only one of report_file_path or status to be used
+  status_description:
+    description: Description for the reported status
   test_mode:
     description: Set to true for debugging
 outputs:

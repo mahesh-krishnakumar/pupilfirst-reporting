@@ -29,28 +29,58 @@ const mutation = gql`
   }
 `;
 
-const submissionData = JSON.parse(
-  fs.readFileSync(
-    path.join(process.env.GITHUB_WORKSPACE, "submission_data.json")
-  )
-);
+let submissionData;
+
+try {
+  submissionData = JSON.parse(
+    fs.readFileSync(
+      path.join(process.env.GITHUB_WORKSPACE, "submission_data.json")
+    )
+  );
+} catch (error) {
+  throw error;
+}
 
 const reportFilePath = core.getInput("report_path");
 
-const reportData = JSON.parse(
-  fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
-);
+let reportData;
+
+if (reportFilePath != undefined) {
+  try {
+    reportData = JSON.parse(
+      fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
+const statusInput = core.getInput("status");
+
+const descriptionInput = core.getInput("description");
+
+if (reportData == undefined && statusInput == undefined) {
+  throw "One of report data path or status must be present";
+}
+
+const reportStatus = statusInput != undefined ? statusInput : reportData.status;
+
+const reportDescription =
+  descriptionInput != undefined ? descriptionInput : reportData.description;
 
 const variables = {
   submissionId: submissionData.id,
-  description: reportData.report,
-  status: reportData.status,
+  description: reportDescription,
+  status: reportStatus,
 };
 
-// most @actions toolkit packages have async methods
 async function run() {
-  const data = await graphQLClient.request(mutation, variables);
-  console.log(JSON.stringify(data, undefined, 2));
+  if (reportStatus != undefined && reportDescription != undefined) {
+    const data = await graphQLClient.request(mutation, variables);
+    console.log(JSON.stringify(data, undefined, 2));
+  } else {
+    throw "Report status or description missing";
+  }
 }
 
 let testMode = core.getBooleanInput("test_mode");

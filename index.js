@@ -6,7 +6,7 @@ const GraphQLClient = require("graphql-request").GraphQLClient;
 const gql = require("graphql-request").gql;
 
 const endpoint = process.env.REVIEW_END_POINT;
-console.log(endPoint);
+console.log(endpoint);
 
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {

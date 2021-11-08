@@ -7192,7 +7192,7 @@ const GraphQLClient = __nccwpck_require__(2476).GraphQLClient;
 const gql = __nccwpck_require__(2476).gql;
 
 const endpoint = process.env.REVIEW_END_POINT;
-console.log(endPoint);
+console.log(endpoint);
 
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {

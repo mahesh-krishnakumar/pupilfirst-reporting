@@ -41,7 +41,7 @@ try {
   throw error;
 }
 
-const reportFilePath = core.getInput("report_path");
+const reportFilePath = core.getInput("report_file_path");
 
 console.log(submissionData);
 console.log(path.join(process.env.GITHUB_WORKSPACE, reportFilePath));

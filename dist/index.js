@@ -7229,10 +7229,6 @@ try {
 
 const reportFilePath = core.getInput("report_file_path");
 
-console.log(submissionData);
-console.log(path.join(process.env.GITHUB_WORKSPACE, reportFilePath));
-console.log(reportFilePath);
-
 let reportData;
 
 if (reportFilePath != undefined) {

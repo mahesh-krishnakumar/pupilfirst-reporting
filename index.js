@@ -17,7 +17,7 @@ const graphQLClient = new GraphQLClient(endpoint, {
 const mutation = gql`
   mutation SubmissionReport(
     $submissionId: ID!
-    description: String!
+    $description: String!
     $status: SubmissionReportStatus!
   ) {
     createSubmissionReports(

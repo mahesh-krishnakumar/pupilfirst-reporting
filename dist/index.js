@@ -7229,10 +7229,9 @@ try {
 
 const reportFilePath = core.getInput("report_path");
 
-console.log(reportFilePath);
-
 console.log(submissionData);
 console.log(path.join(process.env.GITHUB_WORKSPACE, reportFilePath));
+console.log(reportFilePath);
 
 let reportData;
 

@@ -7228,9 +7228,13 @@ try {
 
 const reportFilePath = core.getInput("report_file_path");
 
+const statusInput = core.getInput("status");
+
+const descriptionInput = core.getInput("description");
+
 let reportData;
 
-if (reportFilePath != undefined) {
+if (statusInput == undefined && reportFilePath != undefined) {
   try {
     reportData = JSON.parse(
       fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
@@ -7239,10 +7243,6 @@ if (reportFilePath != undefined) {
     throw error;
   }
 }
-
-const statusInput = core.getInput("status");
-
-const descriptionInput = core.getInput("description");
 
 if (reportData == undefined && statusInput == undefined) {
   throw "One of report data path or status must be present";

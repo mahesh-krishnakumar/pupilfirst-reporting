@@ -67,7 +67,7 @@ if (reportData == undefined && statusInput == undefined) {
 const reportStatus = statusInput != undefined ? statusInput : reportData.status;
 
 const reportDescription =
-  descriptionInput != undefined ? descriptionInput : reportData.description;
+  descriptionInput != undefined ? descriptionInput : reportData.report;
 
 const variables = {
   submissionId: submissionData.id,

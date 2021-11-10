@@ -7220,9 +7220,7 @@ let submissionData;
 
 try {
   submissionData = JSON.parse(
-    fs.readFileSync(
-      path.join(process.env.GITHUB_WORKSPACE, "submission_data.json")
-    )
+    fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, "submission.json"))
   );
 } catch (error) {
   throw error;

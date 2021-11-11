@@ -7246,6 +7246,10 @@ if (statusInput == undefined && reportFilePath != undefined) {
 
 console.log(reportData);
 
+console.log(
+  fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
+);
+
 if (reportData == undefined && statusInput == undefined) {
   throw "One of report data path or status must be present";
 }

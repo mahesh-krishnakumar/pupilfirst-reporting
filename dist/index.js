@@ -7244,6 +7244,8 @@ if (statusInput == undefined && reportFilePath != undefined) {
   }
 }
 
+console.log(reportData);
+
 if (reportData == undefined && statusInput == undefined) {
   throw "One of report data path or status must be present";
 }

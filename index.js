@@ -6,7 +6,6 @@ const GraphQLClient = require("graphql-request").GraphQLClient;
 const gql = require("graphql-request").gql;
 
 const endpoint = process.env.REVIEW_END_POINT;
-console.log(endpoint);
 
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
@@ -30,6 +29,7 @@ const mutation = gql`
   }
 `;
 
+// Parse student submission data
 let submissionData;
 
 try {
@@ -40,16 +40,17 @@ try {
   throw error;
 }
 
+// Parse inputs to the action
 const reportFilePath = core.getInput("report_file_path");
 
 const statusInput = core.getInput("status");
 
 const descriptionInput = core.getInput("description");
 
+// Check for report data
 let reportData;
 
-if (statusInput == "" && reportFilePath != "") {
-  console.log("hey");
+if (reportFilePath != "") {
   try {
     reportData = JSON.parse(
       fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
@@ -59,14 +60,22 @@ if (statusInput == "" && reportFilePath != "") {
   }
 }
 
-if (reportData == undefined && statusInput == "") {
-  throw "One of report data path or status must be present";
-}
-
 const reportStatus = statusInput != "" ? statusInput : reportData.status;
 
 const reportDescription =
   descriptionInput != "" ? descriptionInput : reportData.report;
+
+const validStatuses = ["error", "failure", "pending", "success"];
+
+let validStatus = (status) => {
+  return validStatuses.includes(status);
+};
+
+if (!validStatus(reportStatus)) {
+  reportStatus = "error";
+  reportDescription =
+    "Something went wrong with the tests! Please check the workflow";
+}
 
 const variables = {
   submissionId: submissionData.id,
@@ -87,6 +96,7 @@ let testMode = core.getBooleanInput("test_mode");
 
 if (testMode) {
   console.log(reportData);
+  console.log(submissionData);
 } else {
   run().catch((error) => console.log(error));
 }

@@ -7235,9 +7235,7 @@ const descriptionInput = core.getInput("description");
 let reportData;
 
 if (statusInput == undefined && reportFilePath != undefined) {
-  console.log(
-    fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
-  );
+  console.log("hey");
   try {
     reportData = JSON.parse(
       fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, reportFilePath))
@@ -7252,6 +7250,9 @@ if (reportData == undefined && statusInput == undefined) {
 }
 
 const reportStatus = statusInput != undefined ? statusInput : reportData.status;
+
+console.log(statusInput);
+console.log(reportData);
 
 const reportDescription =
   descriptionInput != undefined ? descriptionInput : reportData.report;

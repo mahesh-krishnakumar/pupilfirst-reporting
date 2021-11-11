@@ -7234,7 +7234,7 @@ const descriptionInput = core.getInput("description");
 
 let reportData;
 
-if (statusInput == undefined && reportFilePath != undefined) {
+if (statusInput == "" && reportFilePath != "") {
   console.log("hey");
   try {
     reportData = JSON.parse(
@@ -7245,17 +7245,14 @@ if (statusInput == undefined && reportFilePath != undefined) {
   }
 }
 
-if (reportData == undefined && statusInput == undefined) {
+if (reportData == undefined && statusInput == "") {
   throw "One of report data path or status must be present";
 }
 
-const reportStatus = statusInput != undefined ? statusInput : reportData.status;
-
-console.log(statusInput);
-console.log(reportData);
+const reportStatus = statusInput != "" ? statusInput : reportData.status;
 
 const reportDescription =
-  descriptionInput != undefined ? descriptionInput : reportData.report;
+  descriptionInput != "" ? descriptionInput : reportData.report;
 
 const variables = {
   submissionId: submissionData.id,

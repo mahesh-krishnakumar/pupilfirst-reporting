@@ -30,7 +30,7 @@
     "graphql-request": "^3.5.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.32.0",
+    "@vercel/ncc": "^0.33.0",
     "eslint": "^8.0.0",
     "jest": "^27.0.6"
   }
